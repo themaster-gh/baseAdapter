@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -14,11 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.Checkable;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.widget.*;
 
 public class ViewHolder extends RecyclerView.ViewHolder
 {
@@ -41,11 +38,9 @@ public class ViewHolder extends RecyclerView.ViewHolder
         return holder;
     }
 
-    public static ViewHolder createViewHolder(Context context,
-                                              ViewGroup parent, int layoutId)
+    public static ViewHolder createViewHolder(Context context, ViewGroup parent, int layoutId)
     {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
-                false);
+        View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         ViewHolder holder = new ViewHolder(context, itemView);
         return holder;
     }
@@ -73,8 +68,6 @@ public class ViewHolder extends RecyclerView.ViewHolder
     }
 
 
-
-
     /****以下为辅助方法*****/
 
     /**
@@ -88,6 +81,27 @@ public class ViewHolder extends RecyclerView.ViewHolder
     {
         TextView tv = getView(viewId);
         tv.setText(text);
+        return this;
+    }
+
+    /**
+     * 设置TextView的值
+     *
+     * @param viewId
+     * @param text
+     * @return
+     */
+    public ViewHolder setText(int viewId, CharSequence text)
+    {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
+
+    public ViewHolder setCompoundDrawablesWithIntrinsicBounds(int viewId, @DrawableRes int left, @DrawableRes int top, @DrawableRes int right, @DrawableRes int bottom)
+    {
+        TextView view = getView(viewId);
+        view.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
         return this;
     }
 
@@ -243,24 +257,28 @@ public class ViewHolder extends RecyclerView.ViewHolder
     /**
      * 关于事件的
      */
-    public ViewHolder setOnClickListener(int viewId,
-                                         View.OnClickListener listener)
+    public ViewHolder setOnClickListener(int viewId, View.OnClickListener listener)
     {
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;
     }
 
-    public ViewHolder setOnTouchListener(int viewId,
-                                         View.OnTouchListener listener)
+    public ViewHolder setOnCheckedChangeListener(int viewId, CompoundButton.OnCheckedChangeListener listener)
+    {
+        CompoundButton view = (CompoundButton)getView(viewId);
+        view.setOnCheckedChangeListener(listener);
+        return this;
+    }
+
+    public ViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener)
     {
         View view = getView(viewId);
         view.setOnTouchListener(listener);
         return this;
     }
 
-    public ViewHolder setOnLongClickListener(int viewId,
-                                             View.OnLongClickListener listener)
+    public ViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener)
     {
         View view = getView(viewId);
         view.setOnLongClickListener(listener);

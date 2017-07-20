@@ -2,8 +2,6 @@ package com.zhy.adapter.recyclerview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
-
 import com.zhy.adapter.recyclerview.base.ItemViewDelegate;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -51,5 +49,30 @@ public abstract class CommonAdapter<T> extends MultiItemTypeAdapter<T>
 
     protected abstract void convert(ViewHolder holder, T t, int position);
 
+    public void removeItem(int position)
+    {
+        mDatas.remove(position);
+        notifyItemRemoved(position);
+        // 这个判断的意义就是如果移除的是最后一个，就不用管它了
+        if (position != mDatas.size())
+        {
+            notifyItemRangeChanged(position, mDatas.size() - position);
+        }
+    }
 
+    public void addItem(T bean)
+    {
+        mDatas.add(bean);
+        notifyItemInserted(mDatas.size() - 1);
+    }
+
+    public void addItem(T bean, int position)
+    {
+        mDatas.add(position, bean);
+        notifyItemInserted(position);
+        if (position != mDatas.size() - 1)
+        {
+            notifyItemRangeChanged(position, mDatas.size() - position);
+        }
+    }
 }
